@@ -1,10 +1,14 @@
 import pandas as pd
 import math
 import xlrd
+import numpy as np
+
+#Digunakan untuk mengakses datatest
 a = xlrd.open_workbook("SainsTesting.xlsx")
 sains = a.sheet_by_index(0)
 b = xlrd.open_workbook("SosialTraining.xlsx")
 sosial = b.sheet_by_index(0)
+
 #sains
 b_ind_1 = []
 b_ing_1 = []
@@ -54,19 +58,24 @@ def cari_jarakips(x1,x2,y1,y2,k1,k2):
     akar = math.sqrt(a)
     return akar
 
-print("pilih jurusan mu")
+print("Selamat Datang di Sistem Rekomendasi Jurusan Tel-U")
+print("Silahkan pilih kejuruan ketika masa SMA")
+print("Jurusan Ketika SMA")
 print("contoh : 1 . untuk ipa")
 print("contoh : 2 . untuk ips")
 hasil_input = int(input("pilih jurusan: "))
-print("masukkan nilaimu")
+print("Berikutnya silahkan masukan nilai akhir rapot yang kamu peroleh selama ini ! ")
+print("Masukan Nilai Rata-rata rapot semasa SMA : ")
 b_in =  float(input("bahasa indonesia : "))
 arr_b_in.append(b_in)
 b_ing =  float(input("bahasa inggris : "))
 arr_b_ing.append(b_ing)
 mtk =  float(input("matematika : "))
 arr_mtk.append(mtk)
-fis =  float(input("fisika : "))
-arr_fis.append(fis)
+if(hasil_input == 1 ):
+    fis =  float(input("fisika : "))
+    arr_fis.append(fis)
+
 
 
 def sortFirst(val):
@@ -134,12 +143,50 @@ for i in range(len(arr_b_in)):
     if(len(u) > 0):
         ips = sorted(u)[0:7]
 
+# using sorted() + set() + count()
+# sorting and removal of duplicates
+res1 = sorted(set(bestIpa), key = lambda ele: bestIpa.count(ele))
+res2 = sorted(set(bestIps_ipa), key = lambda ele: bestIps_ipa.count(ele))
+res3 = sorted(set(bestIps), key = lambda ele: bestIps.count(ele))
 
-print(bestIps)
-print(bestIpa)
-print(bestIps_ipa)
+
+# print result
+
+res1_sains= []
+res2_ips_ipa = []
+res3_ips = []
+
+res1_sains.append(res1)
+res2_ips_ipa.append(res2)
+res3_ips.append(res3)
+if(hasil_input==1):
+    # print(bestIpa)
+    # print(bestIps_ipa)
+    print("Untuk hasil rekomendasi sementara dengan prodi kejuruan sains adalah : " + str(res1[::-1]))
+    print("Untuk hasil rekomendasi sementara dengan prodi kejuruan sosial adalah : " + str(res2[::-1]))
+
+if(hasil_input==2):
+    # print(bestIps)
+    print("Untuk hasil rekomendasi sementara dengan prodi kejuruan sosial adalah : " + str(res3[::-1]))
+
+# print (np.vstack(res1))
 # print(best)
 # print(ips)
+
+# vstack_sains = []
+# vstack_ips_ipa = []
+# vstack_ips = []
+#
+# vstack_sains.append(res1[::-1])
+# vstack_ips_ipa.append(res2[::-1])
+# vstack_ips.append(res3[::-1])
+#
+# print(np.vstack(vstack_sains))
+# print(np.vstack(vstack_ips_ipa))
+
+
+
+
 
 
     # for k in best:
